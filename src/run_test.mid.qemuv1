@@ -1,0 +1,1 @@
+$OUT_PATH/host/csky-qemu/bin/qemu-system-cskyv1 -machine virt -kernel $OUT_PATH/images/vmlinux -dtb $OUT_PATH/images/qemu.dtb -nographic  > >(tee $ROOT_PATH/test.log)

@@ -1,0 +1,42 @@
+echo ============= csky test sum ============= > $ROOT_PATH/test_sum.log
+while read LINE
+do
+if [ "$GET_START" == "y" ];then
+  if [[ "$LINE" =~ "end =========" ]];then
+    GET_START=n
+    echo $LINE>>$OUT
+  else
+    if [[ "$OUT" =~ "ltp.sum" ]]; then
+      if [[ "$LINE" =~ "Total" ]]; then
+        echo tlp: $LINE>>$ROOT_PATH/test_sum.log
+      fi
+    elif [[ "$OUT" =~ "dhrystone.log" ]]; then
+      if [[ "$LINE" =~ "Dhrystones per Second" ]]; then
+        echo dhrystone: $LINE>>$ROOT_PATH/test_sum.log
+      fi
+    elif [[ "$OUT" =~ "whetstone.log" ]]; then
+      echo whetstone: $LINE>>$ROOT_PATH/test_sum.log
+    fi
+    echo $LINE>>$OUT
+  fi
+else
+  if [[ "$LINE" =~ "start =========" ]];then
+    GET_START=y
+    if [[ "$LINE" =~ "ltp" ]]; then
+      TEST=ltp
+    elif [[ "$LINE" =~ "dhrystone" ]]; then
+      TEST=dhrystone
+    elif [[ "$LINE" =~ "whetstone" ]]; then
+      TEST=whetstone
+    fi
+    if [[ "$LINE" =~ "sum" ]]; then
+      OUT=$ROOT_PATH/$TEST.sum
+    else
+      OUT=$ROOT_PATH/$TEST.log
+    fi
+    echo $LINE>$OUT
+  fi
+fi
+done  < $ROOT_PATH/test.log
+cat $ROOT_PATH/test_sum.log
+
