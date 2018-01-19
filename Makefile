@@ -52,6 +52,8 @@ mkscript :
 	@$(MK_SCRIPT_WHETSTONE)
 	@$(LTP_SCRIPT_LIST)
 	@cat src/S90test.tail >> ./out/S90test
+	@chmod 755 ./out/sh/run_test.sh
+	@chmod 755 ./out/S90test
 
 clean :
 	@rm ./out -rf
