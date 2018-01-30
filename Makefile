@@ -28,6 +28,13 @@ MK_SCRIPT_LTP =
 LTP_SCRIPT_LIST =
 endif
 
+ifeq ($(CONFIG_LMBENCH),y)
+MK_SCRIPT_LMBENCH = cat src/run_lmbench >> ./out/S90test;\
+                      cp src/CONFIG.lmbench ./out/configs/
+else
+MK_SCRIPT_LMBENCH =
+endif
+
 ifeq ($(CONFIG_DHRYSTONE),y)
 MK_SCRIPT_DHRYSTONE = cat src/run_dhrystone >> ./out/S90test
 else
@@ -55,6 +62,7 @@ mkscript :
 	@cat src/check_done >> ./out/sh/check_done.sh
 	@cp src/S90test.header ./out/S90test
 	@$(MK_SCRIPT_LTP)
+	@$(MK_SCRIPT_LMBENCH)
 	@$(MK_SCRIPT_DHRYSTONE)
 	@$(MK_SCRIPT_WHETSTONE)
 	@$(LTP_SCRIPT_LIST)

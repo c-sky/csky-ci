@@ -1,0 +1,3 @@
+        echo "============== lmbench log start ==============="
+        lmbench /usr/lib/csky-test/CONFIG.lmbench
+        echo "============== lmbench log end ================="
