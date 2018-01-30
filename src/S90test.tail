@@ -1,3 +1,4 @@
+	touch /usr/lib/csky-test/.stamp_test_done
 	poweroff
 	;;
   stop)

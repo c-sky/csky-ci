@@ -1,0 +1,6 @@
+do
+sleep 1
+done
+ps|grep csky|awk '{print $1}'|xargs kill -9
+ps|grep minicom|awk '{print $1}'|xargs kill -9
+
