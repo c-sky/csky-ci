@@ -10,9 +10,11 @@ RUN_TEST_MID = run_test.mid.qemuv2
 endif
 MAKE_NFS =
 CHECK_DONE =
+CHECK_STAMP =
 else
 MAKE_NFS = echo "rm -rf /home/vmh/nfs/$(CONFIG_NFS)/*" >> ./out/sh/run_test.sh;\
            echo tar -xf "$$"OUT_PATH/images/rootfs.tar -C /home/vmh/nfs/$(CONFIG_NFS)/ >> ./out/sh/run_test.sh
+CHECK_STAMP = echo touch /home/vmh/nfs/$(CONFIG_NFS)/usr/lib/csky-test/.stamp_test_done >> ./out/sh/run_test.sh
 RUN_TEST_MID = run_test.mid.gdb
 CHECK_DONE = echo "while [ ! -f \"/home/vmh/nfs/$(CONFIG_NFS)/usr/lib/csky-test/.stamp_test_done\" ]" > ./out/sh/check_done.sh
 endif
@@ -58,6 +60,7 @@ mkscript :
 	@cp src/run_test.header ./out/sh/run_test.sh
 	@$(MAKE_NFS)
 	@cat src/$(RUN_TEST_MID) >> ./out/sh/run_test.sh
+	@$(CHECK_STAMP)
 	@cat src/run_test.tail >> ./out/sh/run_test.sh
 	@$(CHECK_DONE)
 	@cat src/check_done >> ./out/sh/check_done.sh
