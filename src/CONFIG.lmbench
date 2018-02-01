@@ -1,6 +1,6 @@
 DISKS=""
 DISK_DESC=""
-OUTPUT=/dev/tty
+OUTPUT=
 FASTMEM="NO"
 FILE=/usr/tmp/XXX
 FSDIR=/usr/tmp

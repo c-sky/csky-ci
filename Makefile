@@ -33,7 +33,8 @@ endif
 
 ifeq ($(CONFIG_LMBENCH),y)
 MK_SCRIPT_LMBENCH = cat src/run_lmbench >> ./out/S90test;\
-                      cp src/CONFIG.lmbench ./out/configs/
+                    cp src/CONFIG.lmbench ./out/configs/;\
+                    sed -i 's/OUTPUT=/OUTPUT=\/dev\/$(CONFIG_TTY)/g' ./out/configs/CONFIG.lmbench
 else
 MK_SCRIPT_LMBENCH =
 endif
@@ -66,7 +67,7 @@ mkscript :
 	@cat src/check_done >> ./out/sh/check_done.sh
 	@cp src/S90test.header ./out/S90test
 	@$(MK_SCRIPT_LTP)
-	@$(MK_SCRIPT_LMBENCH)
+	$(MK_SCRIPT_LMBENCH)
 	@$(MK_SCRIPT_DHRYSTONE)
 	@$(MK_SCRIPT_WHETSTONE)
 	@$(LTP_SCRIPT_LIST)
