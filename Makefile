@@ -72,6 +72,7 @@ mkscript :
 	@$(MK_SCRIPT_WHETSTONE)
 	@$(LTP_SCRIPT_LIST)
 	@cat src/S90test.tail >> ./out/S90test
+	@gcc src/com_tool.c -o ./out/sh/com_tool -O2
 	@chmod 755 ./out/sh/run_test.sh
 	@chmod 755 ./out/sh/check_done.sh
 	@chmod 755 ./out/S90test
