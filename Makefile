@@ -68,7 +68,7 @@ mkscript :
 	@cat src/check_done >> ./out/sh/check_done.sh
 	@cp src/S90test.header ./out/S90test
 	@$(MK_SCRIPT_LTP)
-	$(MK_SCRIPT_LMBENCH)
+	@$(MK_SCRIPT_LMBENCH)
 	@$(MK_SCRIPT_DHRYSTONE)
 	@$(MK_SCRIPT_WHETSTONE)
 	@$(LTP_SCRIPT_LIST)
