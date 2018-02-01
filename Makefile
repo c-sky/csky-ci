@@ -58,6 +58,7 @@ mkscript :
 	@mkdir -p ./out
 	@mkdir -p ./out/sh
 	@mkdir -p ./out/configs
+	@cp config ./out/configs/
 	@cp src/run_test.header ./out/sh/run_test.sh
 	@$(MAKE_NFS)
 	@cat src/$(RUN_TEST_MID) >> ./out/sh/run_test.sh
