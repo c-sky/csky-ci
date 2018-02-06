@@ -1,3 +1,0 @@
-        echo "============== dhrystone log start ==============="
-        dhrystone 10000000
-        echo "============== dhrystone log end ================="

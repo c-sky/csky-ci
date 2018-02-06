@@ -1,79 +1,47 @@
 ROOTDIR  = $(shell pwd)
+BENCHMARK = $(shell echo $(notdir $(sort $(wildcard benchmark/*))) | tr '[a-z]' '[A-Z]')
 
-include ./config
+include $(ROOTDIR)/config
+include $(sort $(wildcard benchmark/*/*.mk))
 
 ifeq ($(CONFIG_QEMU),y)
-ifeq ($(CONFIG_CPU),ck610)
+ifeq ($(CONFIG_CPU_CK610),y)
 RUN_TEST_MID = run_test.mid.qemuv1
 else
 RUN_TEST_MID = run_test.mid.qemuv2
 endif
-MAKE_NFS =
-CHECK_DONE =
-CHECK_STAMP =
 else
-MAKE_NFS = echo "rm -rf /home/vmh/nfs/$(CONFIG_NFS)/*" >> ./out/sh/run_test.sh;\
-           echo tar -xf "$$"OUT_PATH/images/rootfs.tar -C /home/vmh/nfs/$(CONFIG_NFS)/ >> ./out/sh/run_test.sh
-CHECK_STAMP = echo touch /home/vmh/nfs/$(CONFIG_NFS)/usr/lib/csky-test/.stamp_test_done >> ./out/sh/run_test.sh
 RUN_TEST_MID = run_test.mid.gdb
-CHECK_DONE = echo "while [ ! -f \"/home/vmh/nfs/$(CONFIG_NFS)/usr/lib/csky-test/.stamp_test_done\" ]" > ./out/sh/check_done.sh
 endif
 
-ifeq ($(CONFIG_LTP),y) 
-MK_SCRIPT_LTP = cat src/run_ltp >> ./out/S90test
-ifeq ($(CONFIG_LIBC),glibc)
-LTP_SCRIPT_LIST = cp src/ltp-glibc-skiplist ./out/configs/ltp-skiplist
-else
-LTP_SCRIPT_LIST = cp src/ltp-uclibc-skiplist ./out/configs/ltp-skiplist
-endif
-else
-MK_SCRIPT_LTP = 
-LTP_SCRIPT_LIST =
-endif
-
-ifeq ($(CONFIG_LMBENCH),y)
-MK_SCRIPT_LMBENCH = cat src/run_lmbench >> ./out/S90test;\
-                    cp src/CONFIG.lmbench ./out/configs/;\
-                    sed -i 's/OUTPUT=/OUTPUT=\/dev\/$(CONFIG_TTY)/g' ./out/configs/CONFIG.lmbench
-else
-MK_SCRIPT_LMBENCH =
-endif
-
-ifeq ($(CONFIG_DHRYSTONE),y)
-MK_SCRIPT_DHRYSTONE = cat src/run_dhrystone >> ./out/S90test
-else
-MK_SCRIPT_DHRYSTONE =
-endif
-
-ifeq ($(CONFIG_WHETSTONE),y)
-MK_SCRIPT_WHETSTONE = cat src/run_whetstone >> ./out/S90test
-else
-MK_SCRIPT_WHETSTONE =
-endif
-
-all     : mkscript
+all     : mkheader $(BENCHMARK) mktail 
 .PHONY: all
 
-mkscript :
-	@mkdir -p ./out
-	@mkdir -p ./out/sh
-	@mkdir -p ./out/configs
-	@cp config ./out/configs/
-	@cp src/run_test.header ./out/sh/run_test.sh
-	@$(MAKE_NFS)
-	@cat src/$(RUN_TEST_MID) >> ./out/sh/run_test.sh
-	@$(CHECK_STAMP)
-	@cat src/run_test.tail >> ./out/sh/run_test.sh
-	@$(CHECK_DONE)
-	@cat src/check_done >> ./out/sh/check_done.sh
-	@cp src/S90test.header ./out/S90test
-	@$(MK_SCRIPT_LTP)
-	@$(MK_SCRIPT_LMBENCH)
-	@$(MK_SCRIPT_DHRYSTONE)
-	@$(MK_SCRIPT_WHETSTONE)
-	@$(LTP_SCRIPT_LIST)
-	@cat src/S90test.tail >> ./out/S90test
-	@gcc src/com_tool.c -o ./out/sh/com_tool -O2
+mkheader :
+	@mkdir -p $(ROOTDIR)/out
+	@mkdir -p $(ROOTDIR)/out/sh
+	@mkdir -p $(ROOTDIR)/out/configs
+	@cp genertic/S90test.header $(ROOTDIR)/out/S90test
+	@cp genertic/run_test.header $(ROOTDIR)/out/sh/run_test.sh
+	@cat genertic/$(RUN_TEST_MID) >> $(ROOTDIR)/out/sh/run_test.sh
+	@cp genertic/check_done ./out/sh/check_done.sh
+
+$(BENCHMARK) :
+	@if [ $($@_RUN_TEST) ]; then\
+         echo "        echo \"============== $(shell echo $@ | tr '[A-Z]' '[a-z]') log start ===============\"" >> $(ROOTDIR)/out/S90test;\
+         cat benchmark/$(shell echo $@ | tr '[A-Z]' '[a-z]')/$($@_RUN_TEST) >> $(ROOTDIR)/out/S90test;\
+         echo "        echo \"============== $(shell echo $@ | tr '[A-Z]' '[a-z]') log end ===============\"" >> $(ROOTDIR)/out/S90test; >> $(ROOTDIR)/out/S90test;\
+        fi
+	@if [ $($@_ECHO_SUM) ]; then\
+         echo "        echo \"============== $(shell echo $@ | tr '[A-Z]' '[a-z]') sum start ===============\"" >> $(ROOTDIR)/out/S90test;\
+         cat benchmark/$(shell echo $@ | tr '[A-Z]' '[a-z]')/$($@_ECHO_SUM) >> $(ROOTDIR)/out/S90test;\
+         echo "        echo \"============== $(shell echo $@ | tr '[A-Z]' '[a-z]') sum end ===============\"" >> $(ROOTDIR)/out/S90test; >> $(ROOTDIR)/out/S90test;\
+        fi
+	@$($@_CP_CONFIGS)
+
+mktail :
+	@cat genertic/S90test.tail >> $(ROOTDIR)/out/S90test
+	@cat genertic/run_test.tail >> $(ROOTDIR)/out/sh/run_test.sh
 	@chmod 755 ./out/sh/run_test.sh
 	@chmod 755 ./out/sh/check_done.sh
 	@chmod 755 ./out/S90test

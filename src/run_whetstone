@@ -1,3 +1,0 @@
-        echo "============== whetstone log start ==============="
-        whetstone
-        echo "============== whetstone log end ================="
