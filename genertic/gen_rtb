@@ -1,5 +1,8 @@
 #!/bin/bash
 DTBFILE=$(ls output/images/*.dtb)
+if [ ! $DTBFILE ]; then
+    exit 0
+fi
 DTSFILE=${DTBFILE/dtb/dts}
 echo $DTSFILE
 dtc -I dtb -O dts -o $DTSFILE $DTBFILE
