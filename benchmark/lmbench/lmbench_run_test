@@ -1,3 +1,3 @@
         if [ -f "/usr/bin/lmbench" ]; then
-            lmbench /usr/lib/csky-test/CONFIG.lmbench
+            lmbench /usr/lib/csky-ci/CONFIG.lmbench
         fi
