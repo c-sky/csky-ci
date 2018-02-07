@@ -1,1 +1,3 @@
-        dhrystone 10000000
+        if [ -f "/usr/bin/dhrystone" ]; then
+            dhrystone 10000000
+        fi

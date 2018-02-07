@@ -1,1 +1,3 @@
-        lmbench /usr/lib/csky-test/CONFIG.lmbench
+        if [ -f "/usr/bin/lmbench" ]; then
+            lmbench /usr/lib/csky-test/CONFIG.lmbench
+        fi

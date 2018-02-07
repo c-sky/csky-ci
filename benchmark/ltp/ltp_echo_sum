@@ -1,1 +1,4 @@
-        cat /usr/lib/ltp-testsuite/result/ltp.sum
+        if [ -f "/usr/lib/ltp-testsuite/result/ltp.sum" ]; then
+            cat /usr/lib/ltp-testsuite/result/ltp.sum
+        fi
+

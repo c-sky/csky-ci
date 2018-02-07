@@ -1,1 +1,3 @@
-        whetstone
+        if [ -f "/usr/bin/whetstone" ]; then
+            whetstone
+        fi

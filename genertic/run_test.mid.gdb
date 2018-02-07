@@ -6,4 +6,4 @@ cd $OUT_PATH/images/
 ../host/bin/csky-buildroot-*-gdb vmlinux > /dev/null &
 cd -
 tail -f /root/builds/minicom/minicom.log
-touch $OUT_PATH/images/rootfs/usr/lib/csky-test/.stamp_test_done
+touch $OUT_PATH/images/rootfs/usr/lib/csky-ci/.stamp_test_done
