@@ -8,7 +8,7 @@ if [ "$GET_START" == "y" ];then
   else
     if [[ "$OUT" =~ "ltp.sum" ]]; then
       if [[ "$LINE" =~ "Total" ]]; then
-        echo tlp: $LINE>>$ROOT_PATH/test_sum.log
+        echo ltp: $LINE>>$ROOT_PATH/test_sum.log
       fi
     elif [[ "$OUT" =~ "dhrystone.log" ]]; then
       if [[ "$LINE" =~ "Dhrystones per Second" ]]; then
