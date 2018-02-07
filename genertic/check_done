@@ -1,5 +1,5 @@
 OUT_PATH=$(dirname "$0")/../../
-while [ ! -f \"$OUT_PATH/images/rootfs/usr/lib/csky-test/.stamp_test_done" ]
+while [ ! -f \"$OUT_PATH/images/rootfs/usr/lib/csky-ci/.stamp_test_done" ]
 do
 sleep 1
 done
