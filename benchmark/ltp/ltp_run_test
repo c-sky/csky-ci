@@ -1,6 +1,6 @@
         if [ -d "/usr/lib/ltp-testsuite/" ]; then
             mkdir /usr/lib/ltp-testsuite/result
             testlist="syscalls,fs_perms_simple,fsx,mm,ipc,sched,pty,fcntl-locktests,connectors,admin_tools,timers,modules,pipes"
-            /usr/lib/ltp-testsuite/runltp -f $testlist -S /usr/lib/csky-test/ltp-skiplist -p -l /usr/lib/ltp-testsuite/result/ltp.sum -o /usr/lib/ltp-testsuite/result/ltp.log
+            /usr/lib/ltp-testsuite/runltp -f $testlist -S /usr/lib/csky-ci/ltp-skiplist -p -l /usr/lib/ltp-testsuite/result/ltp.sum -o /usr/lib/ltp-testsuite/result/ltp.log
             cat /usr/lib/ltp-testsuite/result/ltp.log
         fi
