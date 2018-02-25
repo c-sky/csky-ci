@@ -7,10 +7,9 @@ DTSFILE=${DTBFILE/dtb/dts}
 echo $DTSFILE
 dtc -I dtb -O dts -o $DTSFILE $DTBFILE
 CONSOLE=$(grep console $DTSFILE|awk -F'console=' '{print $2}'|awk '{print $1}')
-NET_NAME=$(ifconfig|grep enp|awk '{print $1}')
-IP_ADDR=$(ifconfig $NET_NAME|grep "inet "|awk -F: '{print $2}'|awk '{print $1}')
+IP_ADDR=192.168.1.100
 NFS_PATH=$(pwd)/output/images/rootfs
 NFS_PATH_P=${NFS_PATH//\//\\\/}
-sed 's/bootargs.*/bootargs = "console='$CONSOLE' init=\/sbin\/init root=\/dev\/nfs rw nfsroot='$IP_ADDR':'$NFS_PATH_P',v3,tcp,nolock ip=172.16.170.102";/g' $DTSFILE > ${DTSFILE}_new
+sed 's/bootargs.*/bootargs = "console='$CONSOLE' init=\/sbin\/init root=\/dev\/nfs rw nfsroot='$IP_ADDR':'$NFS_PATH_P',v3,tcp,nolock ip=dhcp";/g' $DTSFILE > ${DTSFILE}_new
 dtc -I dts -O dtb -o ${DTBFILE} ${DTSFILE}_new
 rm ${DTSFILE}_new $DTSFILE
