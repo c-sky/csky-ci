@@ -10,6 +10,6 @@ CONSOLE=$(grep console $DTSFILE|awk -F'console=' '{print $2}'|awk '{print $1}')
 IP_ADDR=192.168.1.100
 NFS_PATH=$(pwd)/output/images/rootfs
 NFS_PATH_P=${NFS_PATH//\//\\\/}
-sed 's/bootargs.*/bootargs = "console='$CONSOLE' init=\/sbin\/init root=\/dev\/nfs rw nfsroot='$IP_ADDR':'$NFS_PATH_P',v3,tcp,nolock ip=dhcp";/g' $DTSFILE > ${DTSFILE}_new
+sed 's/CSKY_CI_BOOTARG_STAMP/init=\/sbin\/init root=\/dev\/nfs rw nfsroot='$IP_ADDR':'$NFS_PATH_P',v3,tcp,nolock ip=dhcp/g' $DTSFILE > ${DTSFILE}_new
 dtc -I dts -O dtb -o ${DTBFILE} ${DTSFILE}_new
 rm ${DTSFILE}_new $DTSFILE
