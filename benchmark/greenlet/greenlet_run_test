@@ -1,0 +1,3 @@
+        if [ -f "/usr/lib/greenlet_test.py" ]; then
+            python /usr/lib/greenlet_test.py
+        fi
