@@ -24,7 +24,6 @@ mkheader :
 	@cp genertic/S90test.header $(ROOTDIR)/out/S90test
 	@cp genertic/run_test.header $(ROOTDIR)/out/sh/run_test.sh
 	@cat genertic/$(RUN_TEST_MID) >> $(ROOTDIR)/out/sh/run_test.sh
-	@cp genertic/check_done ./out/sh/check_done.sh
 	@cp genertic/gen_rtb ./out/sh/gen_rtb.sh
 
 $(BENCHMARK) :
@@ -44,7 +43,6 @@ mktail :
 	@cat genertic/S90test.tail >> $(ROOTDIR)/out/S90test
 	@cat genertic/run_test.tail >> $(ROOTDIR)/out/sh/run_test.sh
 	@chmod 755 ./out/sh/run_test.sh
-	@chmod 755 ./out/sh/check_done.sh
 	@chmod 755 ./out/sh/gen_rtb.sh
 	@chmod 755 ./out/S90test
 
