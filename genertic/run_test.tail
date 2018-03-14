@@ -23,7 +23,10 @@ else
   fi
 fi
 done  < $ROOT_PATH/test.log
+RESULT=0
 for i in ./*_parse.sh ;do
   $i $ROOT_PATH/test.log
+  RESULT=$(($RESULT+$?))
 done
+exit $RESULT
 
