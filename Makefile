@@ -37,13 +37,15 @@ $(BENCHMARK) :
          cat benchmark/$(shell echo $@ | tr '[A-Z]' '[a-z]')/$($@_ECHO_SUM) >> $(ROOTDIR)/out/S90test;\
          echo "        echo \"============== $(shell echo $@ | tr '[A-Z]' '[a-z]') sum end ===============\"" >> $(ROOTDIR)/out/S90test; >> $(ROOTDIR)/out/S90test;\
         fi
+	@if [ $($@_PARSE_RESULT) ]; then\
+           cp benchmark/$(shell echo $@ | tr '[A-Z]' '[a-z]')/$($@_PARSE_RESULT) $(ROOTDIR)/out/sh/$(shell echo $@ | tr '[A-Z]' '[a-z]')_parse.sh;\
+         fi
 	@$($@_CP_CONFIGS)
 
 mktail :
 	@cat genertic/S90test.tail >> $(ROOTDIR)/out/S90test
 	@cat genertic/run_test.tail >> $(ROOTDIR)/out/sh/run_test.sh
-	@chmod 755 ./out/sh/run_test.sh
-	@chmod 755 ./out/sh/gen_rtb.sh
+	@chmod 755 ./out/sh/*.sh
 	@chmod 755 ./out/S90test
 
 clean :

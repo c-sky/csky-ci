@@ -1,4 +1,10 @@
-echo ============= csky test sum ============= > $ROOT_PATH/test_sum.log
+echo ============= csky test sum =============
+if grep -q "Freeing unused kernel memory" $ROOT_PATH/test.log; then
+echo "Linux kernel start successed!"
+else
+echo "Linux kernel start failed!"
+exit 1
+fi
 while read LINE
 do
 if [ "$GET_START" == "y" ];then
@@ -6,39 +12,18 @@ if [ "$GET_START" == "y" ];then
     GET_START=n
     echo $LINE>>$OUT
   else
-    if [[ "$OUT" =~ "ltp.sum" ]]; then
-      if [[ "$LINE" =~ "Total" ]]; then
-        echo ltp: $LINE>>$ROOT_PATH/test_sum.log
-      fi
-    elif [[ "$OUT" =~ "dhrystone.log" ]]; then
-      if [[ "$LINE" =~ "Dhrystones per Second" ]]; then
-        echo dhrystone: $LINE>>$ROOT_PATH/test_sum.log
-      fi
-    elif [[ "$OUT" =~ "whetstone.log" ]]; then
-      echo whetstone: $LINE>>$ROOT_PATH/test_sum.log
-    fi
     echo $LINE>>$OUT
   fi
 else
   if [[ "$LINE" =~ "start =========" ]];then
     GET_START=y
-    if [[ "$LINE" =~ "ltp" ]]; then
-      TEST=ltp
-    elif [[ "$LINE" =~ "lmbench" ]]; then
-      TEST=lmbench
-    elif [[ "$LINE" =~ "dhrystone" ]]; then
-      TEST=dhrystone
-    elif [[ "$LINE" =~ "whetstone" ]]; then
-      TEST=whetstone
-    fi
-    if [[ "$LINE" =~ "sum" ]]; then
-      OUT=$ROOT_PATH/$TEST.sum
-    else
-      OUT=$ROOT_PATH/$TEST.log
-    fi
+    TEST=$(echo $LINE|awk '{print $2}')
+    OUT=$ROOT_PATH/$TEST.log
     echo $LINE>$OUT
   fi
 fi
 done  < $ROOT_PATH/test.log
-cat $ROOT_PATH/test_sum.log
+for i in ./*_parse.sh ;do
+  $i $ROOT_PATH/test.log
+done
 

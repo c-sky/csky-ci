@@ -1,3 +1,4 @@
         if [ -f "/usr/bin/lmbench" ]; then
+            echo "lmbench test start"
             lmbench /usr/lib/csky-ci/CONFIG.lmbench
         fi

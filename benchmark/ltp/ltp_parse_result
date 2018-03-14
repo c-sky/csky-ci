@@ -1,0 +1,21 @@
+if grep -q "ltp test start" $1; then
+  if grep -q "Total Tests" $1; then
+    echo "ltp test result:"
+    RESULT_POS=$(grep -n "Total Tests:" $1| awk -F ":" '{print $1}')
+    sed -n "$RESULT_POS, $(($RESULT_POS+5))p" $1
+    F=$(grep "Total Failures:" $1| awk '{print $3}')
+    if [ $F -eq 18 -o $F -eq 20 -o $F -eq 25 -o $F -eq 236 -o $F -eq 244 -o $F -eq 251 ] ; then
+      echo "ltp test pass."
+      echo
+    else
+      echo "ltp test fail!!!!!!"
+      exit 1
+    fi
+  else
+    echo "ltp test exception!!!!!"
+    exit 0
+  fi
+else
+  echo "ltp not tested!"
+fi
+

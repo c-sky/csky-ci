@@ -1,0 +1,11 @@
+if grep -q "lmbench test start" $1; then
+  if grep -q "Random load latency" $1; then
+    echo "lmbench test pass."
+  else
+    echo "lmbench test exception!!!!!"
+    exit 1
+  fi
+else
+  echo "lmbench not tested!"
+fi
+
