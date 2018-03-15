@@ -24,7 +24,7 @@ else
 fi
 done  < $ROOT_PATH/test.log
 RESULT=0
-for i in ./*_parse.sh ;do
+for i in $(dirname "$0")/*_parse.sh ;do
   $i $ROOT_PATH/test.log
   RESULT=$(($RESULT+$?))
 done
