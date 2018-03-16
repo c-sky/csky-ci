@@ -1,4 +1,5 @@
 echo ============= csky test sum =============
+dos2unix $ROOT_PATH/test.log
 if grep -q "Freeing unused kernel memory" $ROOT_PATH/test.log; then
 echo "Linux kernel start successed!"
 else
