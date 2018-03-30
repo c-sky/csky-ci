@@ -1,5 +1,9 @@
-	touch /usr/lib/csky-ci/.stamp_test_done
-	poweroff
+#!/bin/sh
+umask 077
+
+case "$1" in
+  start)
+	/etc/init.d/test.sh&
 	;;
   stop)
 	;;

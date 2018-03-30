@@ -11,5 +11,3 @@ define LTP_CP_CONFIGS
 endef
 endif
 
-
-
