@@ -13,8 +13,8 @@ fork13
 getrusage03
 # need dev-net-tun
 ioctl03
-#seems deadlock on kernel after 4.9
-keyctl02
+#assoc_array_walk return back_pointer = 0
+add_key04
 # must be run tmp ,cannot set -d {othertemp}
 open10
 renameat201
