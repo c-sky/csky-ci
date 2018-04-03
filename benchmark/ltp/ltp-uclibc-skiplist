@@ -7,6 +7,8 @@
 ################################
 #  syscalls
 ################################
+#assoc_array_walk return back_pointer = 0
+add_key04
 # fork13 -i 1000000 is bigger
 fork13
 # LC-493 not define F_OFD_SETLKW
