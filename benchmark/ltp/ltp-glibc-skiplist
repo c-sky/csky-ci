@@ -114,3 +114,8 @@ clock_settime02
 stime01
 thp01
 utime01
+
+#ksm and cgroup not enable
+ksm03
+ksm03_1
+ksm05
