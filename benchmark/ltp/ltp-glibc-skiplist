@@ -9,6 +9,8 @@
 ################################
 # fork13 -i 1000000 is bigger
 fork13
+# close in child and can not read in parent
+fanotify07
 # allocate 100MB
 getrusage03
 # need dev-net-tun
