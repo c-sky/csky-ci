@@ -13,8 +13,6 @@ sendfile04
 add_key04
 # fork13 -i 1000000 is bigger
 fork13
-# close in child and can not read in parent
-fanotify07
 # LC-493 not define F_OFD_SETLKW
 fcntl34
 # allocate 100MB
