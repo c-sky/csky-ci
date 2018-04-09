@@ -7,10 +7,10 @@
 ################################
 #  syscalls
 ################################
+#sendfile04 will use content of offset on userspace cause segmentfault
+sendfile04
 # fork13 -i 1000000 is bigger
 fork13
-# close in child and can not read in parent
-fanotify07
 # allocate 100MB
 getrusage03
 # need dev-net-tun
