@@ -7,6 +7,8 @@
 ################################
 #  syscalls
 ################################
+#O_TMPFILE not support on uclibc
+open14
 #will trigger oom killer when highmem is enable
 mem01
 #sendfile04 will use content of offset on userspace cause segmentfault
