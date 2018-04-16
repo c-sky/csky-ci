@@ -7,6 +7,8 @@
 ################################
 #  syscalls
 ################################
+#M_NLBLKS not support on uclibc
+mallopt01
 #O_TMPFILE not support on uclibc
 open14
 #will trigger oom killer when highmem is enable
