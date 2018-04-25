@@ -7,6 +7,9 @@
 ################################
 #  syscalls
 ################################
+#TODO：cause by toolchain update and pt_reg
+epoll01
+msgctl11
 #M_NLBLKS not support on uclibc
 mallopt01
 #O_TMPFILE not support on uclibc
