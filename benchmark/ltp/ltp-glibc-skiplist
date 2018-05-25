@@ -8,7 +8,6 @@
 #  syscalls
 ################################
 #TODO：cause by toolchain update and pt_reg
-epoll01
 msgctl11
 #will trigger oom killer when highmem is enable
 mem01
