@@ -25,7 +25,6 @@ mkheader :
 	@cp genertic/test.header $(ROOTDIR)/out/test.sh
 	@cp genertic/run_test.header $(ROOTDIR)/out/sh/run_test.sh
 	@cat genertic/$(RUN_TEST_MID) >> $(ROOTDIR)/out/sh/run_test.sh
-	@cp genertic/gen_rtb ./out/sh/gen_rtb.sh
 
 $(BENCHMARK) :
 	@if [ $($@_RUN_TEST) ]; then\
