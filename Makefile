@@ -21,10 +21,10 @@ mkheader :
 	@mkdir -p $(ROOTDIR)/out
 	@mkdir -p $(ROOTDIR)/out/sh
 	@mkdir -p $(ROOTDIR)/out/configs
-	@cp genertic/S90test $(ROOTDIR)/out/S90test
-	@cp genertic/test.header $(ROOTDIR)/out/test.sh
-	@cp genertic/run_test.header $(ROOTDIR)/out/sh/run_test.sh
-	@cat genertic/$(RUN_TEST_MID) >> $(ROOTDIR)/out/sh/run_test.sh
+	@cp generic/S90test $(ROOTDIR)/out/S90test
+	@cp generic/test.header $(ROOTDIR)/out/test.sh
+	@cp generic/run_test.header $(ROOTDIR)/out/sh/run_test.sh
+	@cat generic/$(RUN_TEST_MID) >> $(ROOTDIR)/out/sh/run_test.sh
 
 $(BENCHMARK) :
 	@if [ $($@_RUN_TEST) ]; then\
@@ -38,8 +38,8 @@ $(BENCHMARK) :
 	@$($@_CP_CONFIGS)
 
 mktail :
-	@cat genertic/test.tail >> $(ROOTDIR)/out/test.sh
-	@cat genertic/run_test.tail >> $(ROOTDIR)/out/sh/run_test.sh
+	@cat generic/test.tail >> $(ROOTDIR)/out/test.sh
+	@cat generic/run_test.tail >> $(ROOTDIR)/out/sh/run_test.sh
 	@chmod 755 ./out/sh/*.sh
 	@chmod 755 ./out/S90test
 	@chmod 755 ./out/test.sh
