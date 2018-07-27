@@ -4,7 +4,7 @@ if grep -q "ltp test start" $1; then
     RESULT_POS=$(grep -n "Total Tests:" $1| awk -F ":" '{print $1}')
     sed -n "$RESULT_POS, $(($RESULT_POS+5))p" $1
     F=$(grep "Total Failures:" $1| awk '{print $3}')
-    if [ $F -lt 30 -o $F -gt 230 -a $F -lt 400 ] ; then
+    if [ $F -lt 30 -o $F -gt 200 -a $F -lt 400 ] ; then
       echo "ltp test pass."
       echo
     else
