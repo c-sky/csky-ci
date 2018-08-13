@@ -1,3 +1,0 @@
-if [ -f "/usr/bin/dhrystone" ]; then
-    dhrystone 100000000
-fi
