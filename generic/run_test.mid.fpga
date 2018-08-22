@@ -11,8 +11,11 @@ sed -i "s/default.bit/NEW_S2C_BIT_NAME/" /root/.s2chome/board1_download.xml
 source /usr/s2c/PlayerPro/s2c_settings.bash /usr/s2c/PlayerPro
 /usr/s2c/PlayerPro/firmware/bin/s2cdownload_v7 -f "/root/.s2chome/board1_download.xml"
 
+csky_switch /dev/ttyUSB1 off
+csky_switch /dev/ttyUSB1 on
+sleep 8
 touch /root/DebugServerConsole/.stamp_gdb
-sleep 10
+sleep 8
 tail -f /root/minicom/minicom.log > >(tee $ROOT_PATH/test.log) &
 cd $OUT_PATH/images/
 ../host/bin/csky-linux-gdb -x ddr_init ddr_init.elf > /dev/null
@@ -20,4 +23,4 @@ cd $OUT_PATH/images/
 ps|grep tail|awk '{print $1}'|xargs kill -9
 cd -
 touch /root/DebugServerConsole/.stamp_gdb_exit
-
+csky_switch /dev/ttyUSB1 off
