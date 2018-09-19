@@ -27,10 +27,10 @@ endif
 
 OBJ = $(patsubst %.c,%,$(wildcard generic/*.c))
 
-all     : mkheader $(BENCHMARK) mktail $(OBJ)
+all: mkheader $(BENCHMARK) mktail $(OBJ)
 .PHONY: all
 
-mkheader :
+mkheader:
 	@mkdir -p $(ROOTDIR)/out
 	@mkdir -p $(ROOTDIR)/out/sh
 	@mkdir -p $(ROOTDIR)/out/configs
@@ -40,7 +40,7 @@ mkheader :
 	@cat generic/$(RUN_TEST_MID) >> $(ROOTDIR)/out/sh/run_test.sh
 	@sed -i "s/NEW_S2C_BIT_NAME/$(CONFIG_FPGA)/" $(ROOTDIR)/out/sh/run_test.sh
 
-$(BENCHMARK) :
+$(BENCHMARK):
 	@if [ $($@_RUN_TEST) ]; then\
          echo "echo \"============== $(shell echo $@ | tr '[A-Z]' '[a-z]') log start ===============\"" >> $(ROOTDIR)/out/test.sh;\
          cat benchmark/$(shell echo $@ | tr '[A-Z]' '[a-z]')/$($@_RUN_TEST) >> $(ROOTDIR)/out/test.sh;\
@@ -51,9 +51,9 @@ $(BENCHMARK) :
          fi
 	@$($@_CP_CONFIGS)
 
-mktail :
+mktail:
 	@cat generic/test.tail >> $(ROOTDIR)/out/test.sh
-	@cat generic/run_test.tail >> $(ROOTDIR)/out/sh/run_test.sh
+	@cp generic/generic_analyze.sh $(ROOTDIR)/out/sh/
 	@chmod 755 ./out/sh/*.sh
 	@chmod 755 ./out/S90test
 	@chmod 755 ./out/test.sh
@@ -63,5 +63,5 @@ $(OBJ): %: %.c
 	@gcc -o $@ $^ -Wall
 	@mv $@ $(ROOTDIR)/out
 
-clean :
+clean:
 	@rm ./out -rf
