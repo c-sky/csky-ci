@@ -25,7 +25,9 @@ RUN_TEST_MID = run_test.mid.fpga
 endif
 endif
 
-all     : mkheader $(BENCHMARK) mktail 
+OBJ = $(patsubst %.c,%,$(wildcard generic/*.c))
+
+all     : mkheader $(BENCHMARK) mktail $(OBJ)
 .PHONY: all
 
 mkheader :
@@ -55,6 +57,11 @@ mktail :
 	@chmod 755 ./out/sh/*.sh
 	@chmod 755 ./out/S90test
 	@chmod 755 ./out/test.sh
+
+$(OBJ): %: %.c
+	@mkdir -p $(ROOTDIR)/out
+	@gcc -o $@ $^ -Wall
+	@mv $@ $(ROOTDIR)/out
 
 clean :
 	@rm ./out -rf
