@@ -112,9 +112,8 @@ int set_Parity(int fd,int databits,int stopbits,int parity)
 int main(int argc, char *argv[])
 {
 
-    int    fd, c=0, res;
+    int    fd, res;
 
-    char  buf[256];
     char  off[4] = {0xa0, 0x01, 0x00, 0xa1};
     char  on[4] = {0xa0, 0x01, 0x01, 0xa2};
 
