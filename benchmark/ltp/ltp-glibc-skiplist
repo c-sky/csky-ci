@@ -7,6 +7,15 @@
 ################################
 #  syscalls
 ################################
+#need real hardware storage with page operations not ramfs
+readahead02
+#case problem see ltp result in yocto
+fanotify06
+#profile not support in linux
+profil01
+#flock64 used as glibc will covert arg from flock to flock64
+fcntl34
+fcntl36
 #TODO：cause by toolchain update and pt_reg
 msgctl11
 #will trigger oom killer when highmem is enable
