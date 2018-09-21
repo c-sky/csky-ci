@@ -9,7 +9,7 @@ echo "Sleep done"
 #Must enter /root/DebugServerConsole to execute since we need the configs
 cd /root/DebugServerConsole
 killall DebugServerConsole.elf > /dev/null 2>&1
-./DebugServerConsole.elf -ddc -port 1028 &
+./DebugServerConsole.elf -ddc -port 1025 &
 cd -
 
 echo "Gonna sleep $SLEEPY seconds here again"
@@ -29,5 +29,5 @@ killall csky_serial > /dev/null 2>&1
 
 #Must enter /output/images to execute since we need the configs
 cd $OUT_PATH/images
-../host/bin/csky-linux-gdb vmlinux
+../host/bin/csky-linux-gdb -x ./gdbinit vmlinux
 cd -
