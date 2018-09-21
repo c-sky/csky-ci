@@ -1,16 +1,20 @@
 ./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
 ./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 on
 
+SLEEPY=6
+echo "Gonna sleep $SLEEPY seconds here"
+sleep $SLEEPY
+echo "Sleep done"
+
 #Must enter /root/DebugServerConsole to execute since we need the configs
 cd /root/DebugServerConsole
 killall DebugServerConsole.elf > /dev/null 2>&1
 ./DebugServerConsole.elf -ddc -port 1028 &
 cd -
 
-SLEEPY=10
-echo "Gonna sleep $SLEEPY seconds here"
+echo "Gonna sleep $SLEEPY seconds here again"
 sleep $SLEEPY
-echo "Sleep done"
+echo "Sleep done again"
 
 if [ -d /tmp/rootfs_nfs ]; then
 	rm -rf /tmp/rootfs_nfs
