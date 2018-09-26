@@ -1,0 +1,1 @@
+$OUT_PATH/host/csky-qemu/bin/qemu-system-cskyv2 -M mp860 -smp 4 -kernel $OUT_PATH/images/vmlinux -dtb $OUT_PATH/images/qemu_smp.dtb -nographic  > >(tee $ROOT_PATH/test.log)

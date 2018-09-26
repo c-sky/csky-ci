@@ -7,8 +7,15 @@ include $(sort $(wildcard benchmark/*/*.mk))
 ifeq ($(CONFIG_QEMU),y)
 ifeq ($(CONFIG_CPU_CK610),y)
 RUN_TEST_MID = run_test.mid.qemuv1
-else
+endif
+ifeq ($(CONFIG_CPU_CK807),y)
 RUN_TEST_MID = run_test.mid.qemuv2
+endif
+ifeq ($(CONFIG_CPU_CK810),y)
+RUN_TEST_MID = run_test.mid.qemuv2
+endif
+ifeq ($(CONFIG_CPU_CK860),y)
+RUN_TEST_MID = run_test.mid.qemuv2_smp
 endif
 else
 ifeq ($(CONFIG_FPGA),)
