@@ -1,20 +1,53 @@
-./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
-./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 on
+function start_dbg_server()
+{
+	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
+	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 on
+	sleep 3
 
-SLEEPY=6
-echo "Gonna sleep $SLEEPY seconds here"
-sleep $SLEEPY
-echo "Sleep done"
+	#Must enter /root/DebugServerConsole to execute since we need the configs
+	cd /root/DebugServerConsole
+	killall DebugServerConsole.elf > /dev/null 2>&1
+	echo 'DebugServer starts...'
+	# -ddc -port 1025 as default
+	./DebugServerConsole.elf &
+	cd -
+	sleep 1
+}
 
-#Must enter /root/DebugServerConsole to execute since we need the configs
-cd /root/DebugServerConsole
-killall DebugServerConsole.elf > /dev/null 2>&1
-./DebugServerConsole.elf -ddc -port 1025 &
-cd -
+function timeout()
+{
+	local time=10
 
-echo "Gonna sleep $SLEEPY seconds here again"
-sleep $SLEEPY
-echo "Sleep done again"
+	while true;
+	do
+		DE_PID=`ps -e | grep DebugServer | awk '{print $1}'`
+		if [ ! $DE_PID ];
+		then
+			return 1
+		fi
+
+		sleep 1
+		let time-=1
+
+		if [ $time = '0' ];
+		then
+			return 0
+		fi
+		echo "DebugServer survives... time = $time, $DE_PID"
+	done
+}
+
+while true;
+do
+	start_dbg_server
+	timeout
+	if [ $? = '0' ];
+	then
+		echo 'DebugSever is working now'
+		break
+	fi
+done
+
 
 if [ -d /tmp/rootfs_nfs ]; then
 	rm -rf /tmp/rootfs_nfs
