@@ -1,6 +1,7 @@
 function start_dbg_server()
 {
 	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
+	sleep 3
 	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 on
 	sleep 3
 
