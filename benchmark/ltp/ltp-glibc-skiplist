@@ -7,6 +7,9 @@
 ################################
 #  syscalls
 ################################
+#4.9 kernel problem
+fanotify07
+fanotify08
 #need real hardware storage with page operations not ramfs
 readahead02
 #case problem see ltp result in yocto
