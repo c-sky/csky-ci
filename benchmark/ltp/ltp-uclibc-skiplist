@@ -7,6 +7,9 @@
 ################################
 #  syscalls
 ################################
+#4.9 kernel problem
+fanotify07
+fanotify08
 #TODO：cause by toolchain update and pt_reg
 msgctl11
 #M_NLBLKS not support on uclibc
