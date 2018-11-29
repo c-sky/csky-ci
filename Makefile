@@ -18,10 +18,10 @@ ifeq ($(CONFIG_CPU_CK860),y)
 RUN_TEST_MID = run_test.mid.qemuv2_smp
 endif
 else
-ifeq ($(CONFIG_FPGA),)
-RUN_TEST_MID = run_test.mid.gdb
-else
+ifeq ($(CONFIG_FPGA),y)
 RUN_TEST_MID = run_test.mid.fpga
+else
+RUN_TEST_MID = run_test.mid.gdb
 endif
 endif
 
@@ -38,7 +38,7 @@ mkheader:
 	@cp generic/test.header $(ROOTDIR)/out/test.sh
 	@cp generic/run_test.header $(ROOTDIR)/out/sh/run_test.sh
 	@cat generic/$(RUN_TEST_MID) >> $(ROOTDIR)/out/sh/run_test.sh
-	@sed -i "s/NEW_S2C_BIT_NAME/$(CONFIG_FPGA)/" $(ROOTDIR)/out/sh/run_test.sh
+	@sed -i "s/NEW_S2C_BIT_NAME/$(CONFIG_FPGA_BITFILE)/" $(ROOTDIR)/out/sh/run_test.sh
 
 $(BENCHMARK):
 	@if [ $($@_RUN_TEST) ]; then\
