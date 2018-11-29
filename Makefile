@@ -39,6 +39,7 @@ mkheader:
 	@cp generic/run_test.header $(ROOTDIR)/out/sh/run_test.sh
 	@cat generic/$(RUN_TEST_MID) >> $(ROOTDIR)/out/sh/run_test.sh
 	@sed -i "s/NEW_S2C_BIT_NAME/$(CONFIG_FPGA_BITFILE)/" $(ROOTDIR)/out/sh/run_test.sh
+	@sed -i "s/NEW_S2C_ELF_NAME/$(CONFIG_FPGA_DDRINIT)/" $(ROOTDIR)/out/sh/run_test.sh
 
 $(BENCHMARK):
 	@if [ $($@_RUN_TEST) ]; then\
