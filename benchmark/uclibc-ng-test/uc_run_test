@@ -1,5 +1,6 @@
 if [ -d "/usr/lib/uclibc-ng-test" ]; then
     echo "uclibc ng test start"
     chmod 755 /usr/lib/uclibc-ng-test/test/uclibcng-testrunner.sh
-    /usr/lib/uclibc-ng-test/test/uclibcng-testrunner.sh
+    cd /usr/lib/uclibc-ng-test/test/
+    ./uclibcng-testrunner.sh
 fi
