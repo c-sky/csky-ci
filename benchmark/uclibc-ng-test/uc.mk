@@ -1,0 +1,2 @@
+UCLIBC-NG-TEST_RUN_TEST=uc_run_test
+UCLIBC-NG-TEST_PARSE_RESULT=uc_parse_result

@@ -1,0 +1,20 @@
+if grep -q "uclibc ng test start" $1; then
+  if grep -q "Total failed" $1; then
+    echo "ltp test result:"
+    RESULT_POS=$(grep -n "Total skipped:" $1| awk -F ":" '{print $1}')
+    sed -n "$RESULT_POS, $(($RESULT_POS+2))p" $1
+    F=$(grep "Total failed:" $1| awk '{print $3}')
+    if [ $F -lt 100 ] ; then
+      echo "uclibc ng test pass."
+      echo
+    else
+      echo "uclibc ng test fail!!!!!!"
+      exit 1
+    fi
+  else
+    echo "uclibc ng test exception!!!!!"
+    exit 1
+  fi
+else
+  echo "uclibc ng not tested!"
+fi
