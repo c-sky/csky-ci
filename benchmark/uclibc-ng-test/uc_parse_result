@@ -1,6 +1,6 @@
 if grep -q "uclibc ng test start" $1; then
   if grep -q "Total failed" $1; then
-    echo "ltp test result:"
+    echo "uclibc ng test result:"
     RESULT_POS=$(grep -n "Total skipped:" $1| awk -F ":" '{print $1}')
     sed -n "$RESULT_POS, $(($RESULT_POS+2))p" $1
     F=$(grep "Total failed:" $1| awk '{print $3}')
