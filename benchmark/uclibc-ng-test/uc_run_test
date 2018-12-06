@@ -1,5 +1,15 @@
 if [ -d "/usr/lib/uclibc-ng-test" ]; then
     echo "uclibc ng test start"
+    while read -r line
+    do
+      first_char=`echo $line | cut -b 1`
+      if [ "$first_char" = "#" ] || [ "$first_char" = "" ] ||
+         [ "$first_char" = " " ]; then
+        :
+      else
+        sed -i '/'$line'/d' /usr/lib/uclibc-ng-test/test/uclibcng-testrunner.in
+      fi
+    done < /usr/lib/csky-ci/uclibc-ng-test.skiplist
     chmod 755 /usr/lib/uclibc-ng-test/test/uclibcng-testrunner.sh
     cd /usr/lib/uclibc-ng-test/test/
     ./uclibcng-testrunner.sh
