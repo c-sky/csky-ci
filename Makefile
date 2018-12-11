@@ -1,5 +1,4 @@
 ROOTDIR  = $(shell pwd)
-BENCHMARK = $(shell echo $(notdir $(sort $(wildcard benchmark/*))) | tr '[a-z]' '[A-Z]')
 
 include $(ROOTDIR)/config
 include $(sort $(wildcard benchmark/*/*.mk))
@@ -27,7 +26,7 @@ endif
 
 OBJ = $(patsubst %.c,%,$(wildcard generic/*.c))
 
-all: mkheader $(BENCHMARK) mktail $(OBJ)
+all: mkheader mktail $(OBJ)
 .PHONY: all
 
 mkheader:
