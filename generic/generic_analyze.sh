@@ -14,38 +14,17 @@ function shut_down()
 	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
 }
 
+shut_down
+
 if grep -q "Freeing unused kernel memory" $ROOT_PATH/test.log; then
 	echo "Linux kernel start successed!"
-	shut_down
 else
 	echo "Linux kernel start failed!"
-	shut_down
 	exit 1
 fi
 
 echo "Start parsing..."
-while read LINE
-do
-if [ "$GET_START" == "y" ]; then
-  if [[ "$LINE" =~ "end =========" ]]; then
-    GET_START=n
-    echo $LINE>>$OUT
-  else
-    echo $LINE>>$OUT
-  fi
-else
-  if [[ "$LINE" =~ "start =========" ]]; then
-    GET_START=y
-    TEST=$(echo $LINE|awk '{print $2}')
-    OUT=$ROOT_PATH/$TEST.log
-    echo $LINE>$OUT
-  fi
+if grep -q "csky-ci tests failed" $ROOT_PATH/test.log; then
+	echo "Total failure"
+	exit 1
 fi
-done < $ROOT_PATH/test.log
-
-RESULT=0
-for i in $(dirname "$0")/*_parse.sh; do
-  $i $ROOT_PATH/test.log
-  RESULT=$(($RESULT+$?))
-done
-exit $RESULT
