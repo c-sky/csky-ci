@@ -8,7 +8,7 @@ for i in /etc/init.ci/*; do
 	$i
 done
 
-if [ -f /usr/lib/csky-ci/total_result ]
+if [ -f /usr/lib/csky-ci/total_result ]; then
 	echo "csky-ci tests failed"
 	cat /usr/lib/csky-ci/total_result
 fi
