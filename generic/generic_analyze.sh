@@ -23,8 +23,7 @@ else
 	exit 1
 fi
 
-echo "Start parsing..."
 if grep -q "csky-ci tests failed" $ROOT_PATH/test.log; then
-	echo "Total failure"
+	echo "Total failure. Check test.log"
 	exit 1
 fi
