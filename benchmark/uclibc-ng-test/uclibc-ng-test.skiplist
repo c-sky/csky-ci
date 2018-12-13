@@ -1,5 +1,6 @@
-# library path not define correctly for the test
+# library path not define correctly for the test, Please
+# set LD_LIBRARY_PATH=LD_LIBRARY_PATH:/xxx/libtest/
 tst-origin
-# also fail on x86 glibc
+# Wrong test case, and it also fail on x86 glibc
 tst-cancel7
 tst-cancelx7
