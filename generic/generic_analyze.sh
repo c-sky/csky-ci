@@ -23,7 +23,40 @@ else
 	exit 1
 fi
 
+RESULT=0
+#Analyze the board result
 if grep -q "csky-ci tests failed" $ROOT_PATH/test.log; then
 	echo "Total failure. Check test.log"
-	exit 1
+	RESULT=1
 fi
+
+#Analyze the output(host) result
+while read LINE
+do
+if [ "$GET_START" == "y" ]; then
+	if [[ "$LINE" =~ "end =========" ]]; then
+		GET_START=n
+	fi
+	echo $LINE >> $OUT
+else
+	if [[ "$LINE" =~ "start =========" ]]; then
+		GET_START=y
+		TEST=$(echo $LINE | awk '{print $2}')
+		OUT=$ROOT_PATH/$TEST.log
+		echo $LINE > $OUT
+	fi
+fi
+done < $ROOT_PATH/test.log
+
+for i in ./$OUT_PATH/host/csky-ci/parse_script/*; do
+	tmp=${i##*/}
+	cmd=${tmp%%_*}
+	$i $cmd
+done
+
+if grep -q "csky-ci tests failed" $ROOT_PATH/test.log; then
+	echo "Total failure. Check test.log"
+	RESULT=1
+fi
+
+exit $RESULT

@@ -5,7 +5,9 @@ sleep 5
 date -s 09:00:00
 
 for i in /etc/init.ci/*; do
+	echo ================== $i test start ==================
 	$i
+	echo ================== $i test end ==================
 done
 
 if [ -f /usr/lib/csky-ci/total_result ]; then
