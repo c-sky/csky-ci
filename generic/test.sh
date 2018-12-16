@@ -6,9 +6,10 @@ date -s 09:00:00
 
 cd /etc/init.ci/
 for i in *; do
-	echo ================== $i test start ==================
-	$i
-	echo ================== $i test end ==================
+	j=${i%_*}
+	echo ================== $j test start ==================
+	./$i
+	echo ================== $j test end ==================
 done
 cd -
 

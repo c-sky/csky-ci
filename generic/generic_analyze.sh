@@ -50,8 +50,8 @@ done < $ROOT_PATH/test.log
 
 for i in ./$OUT_PATH/host/csky-ci/parse_script/*; do
 	tmp=${i##*/}
-	cmd=${tmp%%_*}
-	$i $cmd
+	par=${tmp%%_*}.log
+	./$i $par
 done
 
 if grep -q "csky-ci tests failed" $ROOT_PATH/test.log; then
