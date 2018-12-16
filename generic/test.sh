@@ -11,7 +11,7 @@ for i in *; do
 	./$i
 	echo ================== $j test end ==================
 done
-cd -
+cd - #This will echo a "/", so, don't bother
 
 if [ -f /usr/lib/csky-ci/total_result ]; then
 	echo "csky-ci tests failed"
