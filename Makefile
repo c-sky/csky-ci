@@ -3,6 +3,8 @@ ROOTDIR  = $(shell pwd)
 include $(ROOTDIR)/config
 include $(sort $(wildcard benchmark/*/*.mk))
 
+RUN_TEST_MID = run_test.mid.gdb
+
 ifeq ($(CONFIG_QEMU),y)
 ifeq ($(CONFIG_CPU_CK610),y)
 RUN_TEST_MID = run_test.mid.qemuv1
@@ -16,12 +18,10 @@ endif
 ifeq ($(CONFIG_CPU_CK860),y)
 RUN_TEST_MID = run_test.mid.qemuv2_smp
 endif
-else
+endif
+
 ifeq ($(CONFIG_FPGA),y)
 RUN_TEST_MID = run_test.mid.fpga
-else
-RUN_TEST_MID = run_test.mid.gdb
-endif
 endif
 
 OBJ = $(patsubst %.c,%,$(wildcard generic/*.c))
