@@ -27,7 +27,7 @@ RESULT=0
 #Analyze the board result
 if grep -q "csky-ci tests failed" $ROOT_PATH/test.log; then
 	echo "Total failure. Check test.log"
-	RESULT=1
+	RESULT=$(($RESULT+1))
 fi
 
 #Analyze the output(host) result
@@ -52,11 +52,7 @@ for i in ./$OUT_PATH/host/csky-ci/parse_script/*; do
 	tmp=${i##*/}
 	par=${tmp%%_*}.log
 	./$i $par
+	RESULT=$(($RESULT+$?))
 done
-
-if grep -q "csky-ci tests failed" $ROOT_PATH/test.log; then
-	echo "Total failure. Check test.log"
-	RESULT=1
-fi
 
 exit $RESULT
