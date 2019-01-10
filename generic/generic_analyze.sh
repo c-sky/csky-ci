@@ -48,6 +48,12 @@ else
 fi
 done < $ROOT_PATH/test.log
 
+num=`ls -A ./$OUT_PATH/host/csky-ci/parse_script/ | wc -w`
+
+if [ $num == 0 ]; then
+	exit $RESULT
+fi
+
 for i in ./$OUT_PATH/host/csky-ci/parse_script/*; do
 	tmp=${i##*/}
 	par=${tmp%%_*}.log
