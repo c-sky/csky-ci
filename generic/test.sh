@@ -3,6 +3,7 @@
 sleep 5
 #init system time to avoid case settimeofday01 fail
 date -s 09:00:00
+sleep 10 # Sleep 10 more secs to login
 
 cd /etc/init.ci/
 for i in *; do
