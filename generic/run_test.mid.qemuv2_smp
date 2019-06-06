@@ -1,1 +1,9 @@
-$OUT_PATH/host/csky-qemu/bin/qemu-system-cskyv2 -M virt -cpu ck860 -smp 2 -kernel $OUT_PATH/images/vmlinux -netdev tap,script=no,id=net0 -device virtio-net-device,netdev=net0 -nographic > >(tee $ROOT_PATH/test.log)
+if [ ! -f ~/.ssh/id_rsa ]; then
+mkdir -p ~/.ssh/
+cp -f package/csky-ci/id_rsa ~/.ssh/
+chmod 600 ~/.ssh/id_rsa
+fi
+IP=`ifconfig eth0|grep "inet addr"|awk -F ':' '{print $2}'|awk '{print $1}'`
+output/host/csky-ci/check_ssh_bg.sh $IP&
+$OUT_PATH/host/csky-qemu/bin/qemu-system-cskyv2 -M virt -cpu ck860 -smp 2 -kernel $OUT_PATH/images/vmlinux -nographic -netdev user,hostfwd=tcp:$IP:5022-10.0.2.15:22,id=net0 -device virtio-net-device,netdev=net0 > >(tee $ROOT_PATH/test.log)
+cat ssh.log >> $ROOT_PATH/test.log

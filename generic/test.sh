@@ -24,5 +24,5 @@ if [ -f /usr/lib/csky-ci/total_result ]; then
 	echo "csky-ci tests failed"
 	cat /usr/lib/csky-ci/total_result
 fi
-
+sleep 60
 poweroff

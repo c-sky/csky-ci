@@ -41,6 +41,7 @@ mkheader:
 
 mktail:
 	@cp generic/generic_analyze.sh $(ROOTDIR)/out/sh/
+	@cp generic/check_ssh_bg.sh $(ROOTDIR)/out/sh/
 	@chmod 755 ./out/sh/*.sh
 	@chmod 755 ./out/S90test
 	@cp generic/test.sh ./out/test.sh
