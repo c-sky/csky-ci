@@ -18,6 +18,9 @@ endif
 ifeq ($(CONFIG_CPU_CK860),y)
 RUN_TEST_MID = run_test.mid.qemuv2_smp
 endif
+ifeq ($(CONFIG_CPU_CK960),y)
+RUN_TEST_MID = run_test.mid.qemu_riscv64
+endif
 endif
 
 ifeq ($(CONFIG_FPGA),y)
