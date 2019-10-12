@@ -1,3 +1,6 @@
+ROOT_PATH=$(dirname "$0")/../../../
+OUT_PATH=$(dirname "$0")/../../
+
 if [ ! -f ~/.ssh/id_rsa ]; then
 mkdir -p ~/.ssh/
 cp -f package/csky-ci/id_rsa ~/.ssh/

@@ -1,10 +1,32 @@
+ROOT_PATH=$(dirname "$0")/../../../
+OUT_PATH=$(dirname "$0")/../../
+
+count=`lsmod | grep tailm_drv | grep -v "grep" | wc -l`
+
+if [ $count != 0 ]; then
+rmmod tailm_drv2
+rmmod tailm_drv
+fi
+
+FPGA_PATH=/mnt/fpga
+
+if [[ ! -f $FPGA_PATH/fpga_download_default.xml ]]; then
+	echo "No NFS?"
+	exit 1
+fi
+
+cp $FPGA_PATH/fpga_download_default.xml $FPGA_PATH/fpga_download.xml
+sed -i "s/default.bit/NEW_S2C_BIT_NAME/g" $FPGA_PATH/fpga_download.xml
+echo "bitfile name: NEW_S2C_BIT_NAME"
+echo "ddrfile name: NEW_S2C_ELF_NAME"
+/usr/s2c/PlayerPro/firmware/driver/drv_install.sh
+source /usr/s2c/PlayerPro/s2c_settings.bash /usr/s2c/PlayerPro
+/usr/s2c/PlayerPro/firmware/bin/s2cdownload_v7 -f "$FPGA_PATH/fpga_download.xml"
+
+sleep 3
+
 function start_dbg_server()
 {
-	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
-	sleep 3
-	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 on
-	sleep 3
-
 	#Must enter /root/DebugServerConsole to execute since we need the configs
 	cd /root/DebugServerConsole
 	killall DebugServerConsole.elf > /dev/null 2>&1
@@ -49,19 +71,11 @@ do
 	fi
 done
 
-
-if [ -d /tmp/rootfs_nfs ]; then
-	rm -rf /tmp/rootfs_nfs
-fi
-mkdir -p /tmp/rootfs_nfs
-if [ -f $OUT_PATH/images/rootfs.tar ]; then
-	tar -xf $OUT_PATH/images/rootfs.tar -C /tmp/rootfs_nfs
-fi
-
 killall csky_serial > /dev/null 2>&1
 ./$OUT_PATH/host/csky-ci/csky_serial > >(tee $ROOT_PATH/test.log) &
 
 #Must enter /output/images to execute since we need the configs
 cd $OUT_PATH/images
+../host/bin/csky-linux-gdb -x ./ddr_init $FPGA_PATH/NEW_S2C_ELF_NAME
 ../host/bin/csky-linux-gdb -x ./gdbinit vmlinux
 cd -

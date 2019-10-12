@@ -1,1 +1,4 @@
+ROOT_PATH=$(dirname "$0")/../../../
+OUT_PATH=$(dirname "$0")/../../
+
 $OUT_PATH/host/bin/qemu-system-riscv64 -M virt -kernel $OUT_PATH/images/fw_jump.elf -device loader,file=$OUT_PATH/images/Image,addr=0x80200000 -nographic -object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-device,rng=rng0> >(tee $ROOT_PATH/test.log)
