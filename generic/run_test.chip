@@ -66,5 +66,5 @@ killall csky_serial > /dev/null 2>&1
 
 #Must enter /output/images to execute since we need the configs
 cd $OUT_PATH/images
-../host/bin/csky-linux-gdb -x ./gdbinit vmlinux
+../host/bin/csky-linux-gdb -ex "tar jtag jtag://127.0.0.1:1025" -x ./gdbinit
 cd -
