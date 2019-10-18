@@ -1,8 +1,11 @@
 ROOT_PATH=$(dirname "$0")/../../../
 OUT_PATH=$(dirname "$0")/../../
 
-function start_dbg_server()
+function start_serial_and_dbg_server()
 {
+	killall csky_serial > /dev/null 2>&1
+	./$OUT_PATH/host/csky-ci/csky_serial > >(tee $ROOT_PATH/test.log) &
+
 	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
 	sleep 3
 	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 on
@@ -43,7 +46,7 @@ function timeout()
 
 while true;
 do
-	start_dbg_server
+	start_serial_and_dbg_server
 	timeout
 	if [ $? = '0' ];
 	then
@@ -60,9 +63,6 @@ mkdir -p /tmp/rootfs_nfs
 if [ -f $OUT_PATH/images/rootfs.tar ]; then
 	tar -xf $OUT_PATH/images/rootfs.tar -C /tmp/rootfs_nfs
 fi
-
-killall csky_serial > /dev/null 2>&1
-./$OUT_PATH/host/csky-ci/csky_serial > >(tee $ROOT_PATH/test.log) &
 
 #Must enter /output/images to execute since we need the configs
 cd $OUT_PATH/images
