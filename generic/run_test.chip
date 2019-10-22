@@ -55,16 +55,17 @@ do
 	fi
 done
 
-
 if [ -d /tmp/rootfs_nfs ]; then
 	rm -rf /tmp/rootfs_nfs
 fi
 mkdir -p /tmp/rootfs_nfs
 if [ -f $OUT_PATH/images/rootfs.tar ]; then
 	tar -xf $OUT_PATH/images/rootfs.tar -C /tmp/rootfs_nfs
+	rm -f /tmp/rootfs_nfs/etc/init.d/S50sshd
 fi
 
 #Must enter /output/images to execute since we need the configs
-cd $OUT_PATH/images
-../host/bin/csky-linux-gdb -ex "tar jtag jtag://127.0.0.1:1025" -x ./gdbinit
+cd $OUT_PATH/images/hw
+chmod 755 ./run.sh
+./run.sh 127.0.0.1:1025 $1
 cd -
