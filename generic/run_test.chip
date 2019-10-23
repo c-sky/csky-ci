@@ -5,6 +5,7 @@ function start_serial_and_dbg_server()
 {
 	killall csky_serial > /dev/null 2>&1
 	./$OUT_PATH/host/csky-ci/csky_serial > >(tee $ROOT_PATH/test.log) &
+	sleep 3
 
 	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
 	sleep 3
