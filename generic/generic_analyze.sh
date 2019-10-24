@@ -57,8 +57,10 @@ fi
 for i in ./$OUT_PATH/host/csky-ci/parse_script/*; do
 	tmp=${i##*/}
 	par=${tmp%%_*}.log
-	./$i $par
-	RESULT=$(($RESULT+$?))
+	if [ -f $par ]; then
+		./$i $par
+		RESULT=$(($RESULT+$?))
+	fi
 done
 
 exit $RESULT
