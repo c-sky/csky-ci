@@ -76,6 +76,5 @@ killall csky_serial > /dev/null 2>&1
 
 #Must enter /output/images to execute since we need the configs
 cd $OUT_PATH/images
-../host/bin/csky-linux-gdb -x ./ddr_init $FPGA_PATH/NEW_S2C_ELF_NAME
-../host/bin/csky-linux-gdb -x ./gdbinit vmlinux
+. run.sh 172.16.150.242:1025 m 60
 cd -
