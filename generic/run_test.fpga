@@ -18,7 +18,6 @@ fi
 cp $FPGA_PATH/fpga_download_default.xml $FPGA_PATH/fpga_download.xml
 sed -i "s/default.bit/NEW_S2C_BIT_NAME/g" $FPGA_PATH/fpga_download.xml
 echo "bitfile name: NEW_S2C_BIT_NAME"
-echo "ddrfile name: NEW_S2C_ELF_NAME"
 /usr/s2c/PlayerPro/firmware/driver/drv_install.sh
 source /usr/s2c/PlayerPro/s2c_settings.bash /usr/s2c/PlayerPro
 /usr/s2c/PlayerPro/firmware/bin/s2cdownload_v7 -f "$FPGA_PATH/fpga_download.xml"

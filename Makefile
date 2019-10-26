@@ -20,7 +20,6 @@ mkscript:
 	@cp generic/run_test.fpga $(ROOTDIR)/out/sh/run_test_fpga.sh
 	@cp generic/run_test.chip $(ROOTDIR)/out/sh/run_test_chip.sh
 	@sed -i "s/NEW_S2C_BIT_NAME/$(CONFIG_FPGA_BITFILE)/" $(ROOTDIR)/out/sh/run_test_fpga.sh
-	@sed -i "s/NEW_S2C_ELF_NAME/$(CONFIG_FPGA_DDRINIT)/" $(ROOTDIR)/out/sh/run_test_fpga.sh
 	@cp generic/generic_analyze.sh $(ROOTDIR)/out/sh/
 	@cp generic/check_ssh_bg.sh $(ROOTDIR)/out/sh/
 	@chmod 755 ./out/sh/*.sh
