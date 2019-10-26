@@ -74,7 +74,7 @@ done
 killall csky_serial > /dev/null 2>&1
 ./$OUT_PATH/host/csky-ci/csky_serial > >(tee $ROOT_PATH/test.log) &
 
-#Must enter /output/images to execute since we need the configs
-cd $OUT_PATH/images
-. run.sh 172.16.150.242:1025 m 60
+#Must enter /output/images/hw to execute since we need the configs
+cd $OUT_PATH/images/hw
+. run.sh 127.0.0.1:1025 m 60
 cd -
