@@ -68,5 +68,5 @@ fi
 #Must enter /output/images to execute since we need the configs
 cd $OUT_PATH/images/hw
 chmod 755 ./run.sh
-./run.sh 127.0.0.1:1025 $1
+LD_LIBRARY_PATH=../../host/lib ./run.sh 127.0.0.1:1025 $1
 cd -
