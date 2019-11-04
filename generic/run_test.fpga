@@ -11,16 +11,15 @@ fi
 FPGA_PATH=/mnt/fpga
 
 if [[ ! -f $FPGA_PATH/fpga_download_default.xml ]]; then
-	echo "No NFS?"
+	echo "No $FPGA_PATH NFS mounted ?"
 	exit 1
 fi
 
 cp $FPGA_PATH/fpga_download_default.xml $FPGA_PATH/fpga_download.xml
 sed -i "s/default.bit/NEW_S2C_BIT_NAME/g" $FPGA_PATH/fpga_download.xml
 echo "bitfile name: NEW_S2C_BIT_NAME"
-/usr/s2c/PlayerPro/firmware/driver/drv_install.sh
-source /usr/s2c/PlayerPro/s2c_settings.bash /usr/s2c/PlayerPro
-/usr/s2c/PlayerPro/firmware/bin/s2cdownload_v7 -f "$FPGA_PATH/fpga_download.xml"
+
+bash $FPGA_PATH/clock_60M.sh
 
 sleep 3
 
