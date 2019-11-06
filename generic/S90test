@@ -3,6 +3,7 @@ umask 077
 
 case "$1" in
   start)
+        cat /proc/cpuinfo
 	/etc/init.d/test.sh&
 	;;
   stop)
