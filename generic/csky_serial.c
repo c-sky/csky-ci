@@ -48,14 +48,94 @@ int main(int argc, char **argv)
 	char buff[BUFSIZE];
 	struct termios oldtio, newtio;
 	struct timeval tv;
+	fd_set rfds;
+
+{
 	char *dev = "/dev/ttyUSB0";
 
-	fd_set rfds;
 	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
-		printf("err: can't open serial port!\n");
-		return -1;
-	}
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
 
+{
+	char *dev = "/dev/ttyUSB1";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+
+
+{
+	char *dev = "/dev/ttyUSB2";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+
+{
+	char *dev = "/dev/ttyUSB3";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+
+
+{
+	char *dev = "/dev/ttyUSB4";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+
+
+{
+	char *dev = "/dev/ttyUSB5";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+
+
+{
+	char *dev = "/dev/ttyUSB6";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+
+{
+	char *dev = "/dev/ttyUSB7";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+
+{
+	char *dev = "/dev/ttyUSB8";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+	return -1;
+good:
 	tcgetattr(fd, &oldtio);
 	setTermios(&newtio, B115200);
 	tcflush(fd, TCIFLUSH);
