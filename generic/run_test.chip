@@ -7,9 +7,9 @@ function start_serial_and_dbg_server()
 	./$OUT_PATH/host/csky-ci/csky_serial > >(tee $ROOT_PATH/test.log) &
 	sleep 3
 
-	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
+	./$OUT_PATH/host/csky-ci/csky_switch /dev/csky_switch off
 	sleep 3
-	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 on
+	./$OUT_PATH/host/csky-ci/csky_switch /dev/csky_switch on
 	sleep 3
 
 	#Must enter /root/DebugServerConsole to execute since we need the configs

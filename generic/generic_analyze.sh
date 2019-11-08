@@ -11,7 +11,7 @@ function shut_down()
 {
 	killall DebugServerConsole.elf > /dev/null 2>&1
 	killall csky_serial > /dev/null 2>&1
-	./$OUT_PATH/host/csky-ci/csky_switch /dev/ttyUSB1 off
+	./$OUT_PATH/host/csky-ci/csky_switch /dev/csky_switch off
 }
 
 shut_down

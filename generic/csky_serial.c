@@ -51,6 +51,15 @@ int main(int argc, char **argv)
 	fd_set rfds;
 
 {
+	char *dev = "/dev/csky_serial";
+
+	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
+		printf("err: can't open serial port, %s!\n", dev);
+	} else
+		goto good;
+}
+
+{
 	char *dev = "/dev/ttyUSB0";
 
 	if ((fd = open(dev, O_RDWR | O_NOCTTY)) < 0) {
